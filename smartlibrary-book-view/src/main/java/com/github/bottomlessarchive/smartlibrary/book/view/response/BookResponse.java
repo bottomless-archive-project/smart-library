@@ -8,4 +8,5 @@ import lombok.Getter;
 public class BookResponse {
 
     private final String title;
+    private final byte[] cover;
 }

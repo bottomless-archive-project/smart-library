@@ -2,6 +2,7 @@ package com.github.bottomlessarchive.smartlibrary.book.view.controller;
 
 import com.github.bottomlessarchive.smartlibrary.book.service.BookEntityFactory;
 import com.github.bottomlessarchive.smartlibrary.book.view.response.BookResponse;
+import com.github.bottomlessarchive.smartlibrary.book.view.service.BookResponseFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
 
     private final BookEntityFactory bookLocatorService;
+    private final BookResponseFactory bookResponseFactory;
 
     @GetMapping("/book/")
     public List<BookResponse> getBooks() {
         return bookLocatorService.getBooks().stream()
-                .map(bookEntity -> BookResponse.builder()
-                        .title(bookEntity.getTitle())
-                        .build()
-                )
+                .map(bookResponseFactory::getBookResponse)
                 .collect(Collectors.toList());
     }
 }
