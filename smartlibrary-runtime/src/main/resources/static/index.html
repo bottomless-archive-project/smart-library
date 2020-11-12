@@ -37,6 +37,23 @@
                             }
                         })
                         .state({
+                            name: 'overview',
+                            url: '/overview/:id',
+                            resolve: {
+                                book: ['$http', '$stateParams', function ($http, $stateParams) {
+                                    return $http.get('/book/' + $stateParams.id)
+                                        .then(function (response) {
+                                            return response.data;
+                                        });
+                                }]
+                            },
+                            templateUrl: './overview/overview.html',
+                            controller: function ($scope, $state, book) {
+                                $scope.book = book;
+                                $scope.id = $state.params['id'];
+                            }
+                        })
+                        .state({
                             name: 'readBook',
                             url: '/read/:id',
                             templateUrl: './read/read.html',

@@ -5,7 +5,14 @@
             <div class="card-body">
                 <h5 class="card-title" ng-bind="book.title"></h5>
                 <p class="card-text" ng-bind="book.description | limitText: 100"></p>
-                <button class="card-link btn btn-primary" style="float: right;" ui-sref="readBook({id:book.id})">Read</button>
+                <div style="float: right;">
+                    <button class="card-link btn btn-primary mr-0" ui-sref="overview({id:book.id})">
+                        Overview
+                    </button>
+                    <button class="card-link btn btn-primary ml-2" ui-sref="readBook({id:book.id})">
+                        Read
+                    </button>
+                </div>
             </div>
         </div>
     </div>
