@@ -40,8 +40,7 @@ public class BookLocationEntityFactory {
 
         return BookLocationEntity.builder()
                 .metadata(bookMetadata)
-                .cover(bookFile.getCover())
-                .content(bookFile.getContent())
+                .bookFile(bookFile)
                 .build();
     }
 }

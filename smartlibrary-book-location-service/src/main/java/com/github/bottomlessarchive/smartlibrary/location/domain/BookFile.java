@@ -8,7 +8,7 @@ import lombok.SneakyThrows;
 
 @Getter
 @Builder
-public class BookFile {
+public class BookFile implements AutoCloseable {
 
     private final ZipFile file;
 
@@ -25,5 +25,10 @@ public class BookFile {
     @SneakyThrows
     public InputStream getContent() {
         return file.getInputStream(file.getEntry("content"));
+    }
+
+    @Override
+    public void close() throws Exception {
+        file.close();
     }
 }

@@ -6,9 +6,21 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BookLocationEntity {
+public class BookLocationEntity implements AutoCloseable {
 
+    private final BookFile bookFile;
     private final BookMetadata metadata;
-    private final InputStream cover;
-    private final InputStream content;
+
+    public InputStream getCover() {
+        return bookFile.getCover();
+    }
+
+    public InputStream getContent() {
+        return bookFile.getContent();
+    }
+
+    @Override
+    public void close() throws Exception {
+        bookFile.close();
+    }
 }

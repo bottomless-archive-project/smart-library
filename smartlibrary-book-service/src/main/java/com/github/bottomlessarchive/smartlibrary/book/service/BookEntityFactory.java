@@ -23,6 +23,7 @@ public class BookEntityFactory {
                                 .coverType(bookLocationEntity.getMetadata().getCoverType())
                                 .content(bookLocationEntity.getContent())
                                 .contentType(bookLocationEntity.getMetadata().getContentType())
+                                .bookLocation(bookLocationEntity)
                                 .build()
                 )
                 .collect(Collectors.toList());

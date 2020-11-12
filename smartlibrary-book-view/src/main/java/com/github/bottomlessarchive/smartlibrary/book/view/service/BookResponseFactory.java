@@ -11,10 +11,12 @@ public class BookResponseFactory {
 
     @SneakyThrows
     public BookResponse getBookResponse(final BookEntity bookEntity) {
-        return BookResponse.builder()
-                .title(bookEntity.getTitle())
-                .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
-                .coverType(bookEntity.getCoverType())
-                .build();
+        try (bookEntity) {
+            return BookResponse.builder()
+                    .title(bookEntity.getTitle())
+                    .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
+                    .coverType(bookEntity.getCoverType())
+                    .build();
+        }
     }
 }
