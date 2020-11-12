@@ -2,13 +2,13 @@ package com.github.bottomlessarchive.smartlibrary.location.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.bottomlessarchive.smartlibrary.location.configuration.BookLocationProperties;
+import com.github.bottomlessarchive.smartlibrary.location.domain.BookFile;
 import com.github.bottomlessarchive.smartlibrary.location.domain.BookLocationEntity;
 import com.github.bottomlessarchive.smartlibrary.location.domain.BookMetadata;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.zip.ZipFile;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,7 @@ public class BookLocationEntityFactory {
     private static final String BOOK_EXTENSION = ".book";
 
     private final ObjectMapper objectMapper;
+    private final BookFileFactory bookFileFactory;
     private final BookLocationProperties bookLocationProperties;
 
     @SneakyThrows
@@ -33,15 +34,14 @@ public class BookLocationEntityFactory {
 
     @SneakyThrows
     private BookLocationEntity parseBookLocation(final Path path) {
-        final ZipFile zipFile = new ZipFile(path.toFile());
+        final BookFile bookFile = bookFileFactory.getBookFile(path);
 
-        final BookMetadata bookMetadata = objectMapper.readValue(
-                zipFile.getInputStream(zipFile.getEntry("metadata.json")), BookMetadata.class);
+        final BookMetadata bookMetadata = objectMapper.readValue(bookFile.getMetadata(), BookMetadata.class);
 
         return BookLocationEntity.builder()
                 .metadata(bookMetadata)
-                .cover(zipFile.getInputStream(zipFile.getEntry("cover.png")))
-                .content(zipFile.getInputStream(zipFile.getEntry("content.pdf")))
+                .cover(bookFile.getCover())
+                .content(bookFile.getContent())
                 .build();
     }
 }
