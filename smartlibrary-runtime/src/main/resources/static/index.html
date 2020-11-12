@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>My library</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"/>
+
+    <!-- Angular -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.26/angular-ui-router.js"></script>
+
+    <script>
+        angular.module('book-library', ['ui.router'])
+            .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$sceProvider',
+                function ($stateProvider, $urlRouterProvider, $httpProvider, $sceProvider) {
+                    $sceProvider.enabled(false);
+
+                    $httpProvider.defaults.withCredentials = true;
+
+                    $urlRouterProvider.otherwise('/');
+
+                    $stateProvider
+                        .state({
+                            name: 'home',
+                            url: '/',
+                            templateUrl: './home/home.html',
+                            resolve: {
+                                books: ['$http', function ($http) {
+                                    return $http.get('/book/')
+                                        .then(function (response) {
+                                            return response.data;
+                                        });
+                                }]
+                            },
+                            controller: function ($scope, books) {
+                                $scope.books = books;
+                            }
+                        })
+                }]);
+    </script>
+</head>
+<body ng-app="book-library">
+<div class="container">
+    <div ui-view></div>
+</div>
+</body>
+</html>

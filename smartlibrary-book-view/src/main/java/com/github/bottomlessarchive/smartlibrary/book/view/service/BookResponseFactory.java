@@ -13,7 +13,7 @@ public class BookResponseFactory {
     public BookResponse getBookResponse(final BookEntity bookEntity) {
         return BookResponse.builder()
                 .title(bookEntity.getTitle())
-                .cover(Base64.getEncoder().encode(bookEntity.getCover().readAllBytes()))
+                .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
                 .build();
     }
 }
