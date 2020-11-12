@@ -6,7 +6,29 @@
         <div class="col-8">
             <div class="card-body">
                 <h3 class="card-title" ng-bind="book.title"></h3>
+                <h6 class="card-subtitle mb-2 text-muted" ng-bind="book.author | stringConcat:', '"></h6>
                 <p class="card-text" ng-bind="book.description"></p>
+                <div class="row">
+                    <div class="col">
+                        <dl>
+                            <dt>ISBN</dt>
+                            <dd ng-bind="book.isbn"></dd>
+                            <dt>Language</dt>
+                            <dd>Unknown</dd>
+                            <dt>Publisher</dt>
+                            <dd ng-bind="book.publisher"></dd>
+                        </dl>
+                    </div>
+                    <div class="col">
+                        <dl>
+                            <dt>Publishing date</dt>
+                            <dd ng-bind="book.published"></dd>
+                            <dt>Page count</dt>
+                            <dd ng-if="book.pageCount >= 0" ng-bind="book.pageCount"></dd>
+                            <dd ng-if="book.pageCount == -1">Unknown</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -15,9 +15,14 @@ public class BookResponseFactory {
             return BookResponse.builder()
                     .id(bookEntity.getId())
                     .title(bookEntity.getTitle())
+                    .isbn(bookEntity.getIsbn())
                     .description(bookEntity.getDescription())
                     .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
                     .coverType(bookEntity.getCoverType())
+                    .author(bookEntity.getAuthor())
+                    .pageCount(bookEntity.getPageCount())
+                    .publisher(bookEntity.getPublisher())
+                    .published(bookEntity.getPublished())
                     .build();
         }
     }

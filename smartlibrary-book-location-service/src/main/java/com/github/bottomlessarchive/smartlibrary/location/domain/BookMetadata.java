@@ -1,5 +1,6 @@
 package com.github.bottomlessarchive.smartlibrary.location.domain;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -17,6 +18,8 @@ public class BookMetadata {
      */
     private String title;
 
+    private String isbn;
+
     /**
      * The MIME type of the cover.
      */
@@ -28,4 +31,8 @@ public class BookMetadata {
     private String contentType;
 
     private String description;
+    private List<String> author;
+    private String publisher;
+    private String published;
+    private int pageCount;
 }
