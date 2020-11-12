@@ -33,13 +33,15 @@ public class BookLocationEntityFactory {
 
     @SneakyThrows
     private BookLocationEntity parseBookLocation(final Path path) {
-        ZipFile zipFile = new ZipFile(path.toFile());
+        final ZipFile zipFile = new ZipFile(path.toFile());
 
-        BookMetadata bookMetadata = objectMapper.readValue(
+        final BookMetadata bookMetadata = objectMapper.readValue(
                 zipFile.getInputStream(zipFile.getEntry("metadata.json")), BookMetadata.class);
 
         return BookLocationEntity.builder()
                 .metadata(bookMetadata)
+                .cover(zipFile.getInputStream(zipFile.getEntry("cover.png")))
+                .content(zipFile.getInputStream(zipFile.getEntry("content.pdf")))
                 .build();
     }
 }

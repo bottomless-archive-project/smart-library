@@ -1,5 +1,6 @@
 package com.github.bottomlessarchive.smartlibrary.location.domain;
 
+import java.io.InputStream;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,6 +9,6 @@ import lombok.Getter;
 public class BookLocationEntity {
 
     private final BookMetadata metadata;
-    private final byte[] cover;
-    private final byte[] content;
+    private final InputStream cover;
+    private final InputStream content;
 }
