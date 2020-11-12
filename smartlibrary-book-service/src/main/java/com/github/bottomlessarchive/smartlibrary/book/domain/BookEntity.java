@@ -9,8 +9,10 @@ import lombok.Getter;
 @Builder
 public class BookEntity implements AutoCloseable {
 
+    private final String id;
     private final int version;
     private final String title;
+    private final String description;
     private final String coverType;
     private final InputStream cover;
     private final String contentType;

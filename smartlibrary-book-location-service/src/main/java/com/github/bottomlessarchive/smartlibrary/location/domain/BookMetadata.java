@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class BookMetadata {
 
+    private String id;
+
     /**
      * The version of the standard that was used to create the book file.
      */
@@ -24,4 +26,6 @@ public class BookMetadata {
      * The MIME type of the content.
      */
     private String contentType;
+
+    private String description;
 }

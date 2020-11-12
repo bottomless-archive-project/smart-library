@@ -36,7 +36,28 @@
                                 $scope.books = books;
                             }
                         })
-                }]);
+                        .state({
+                            name: 'readBook',
+                            url: '/read/:id',
+                            templateUrl: './read/read.html',
+                            controller: function ($scope, $state) {
+                                $scope.id = $state.params['id'];
+                            }
+                        })
+                }])
+            .filter('limitText', ['$filter',
+                function ($filter) {
+                    function limitText(input, limit) {
+                        var newContent = $filter('limitTo')(input, limit).trim();
+                        if (newContent.length < input.length) {
+                            newContent += '...';
+                        }
+                        return newContent;
+                    }
+
+                    return limitText;
+                }
+            ]);
     </script>
 </head>
 <body ng-app="book-library">

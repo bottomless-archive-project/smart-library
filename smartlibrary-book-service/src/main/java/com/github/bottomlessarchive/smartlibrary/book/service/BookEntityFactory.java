@@ -17,8 +17,10 @@ public class BookEntityFactory {
         return bookLocationEntityFactory.getBookLocations().stream()
                 .map(bookLocationEntity ->
                         BookEntity.builder()
+                                .id(bookLocationEntity.getMetadata().getId())
                                 .version(bookLocationEntity.getMetadata().getVersion())
                                 .title(bookLocationEntity.getMetadata().getTitle())
+                                .description(bookLocationEntity.getMetadata().getDescription())
                                 .cover(bookLocationEntity.getCover())
                                 .coverType(bookLocationEntity.getMetadata().getCoverType())
                                 .content(bookLocationEntity.getContent())

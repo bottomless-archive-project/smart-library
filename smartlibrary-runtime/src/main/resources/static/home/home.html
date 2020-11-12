@@ -4,8 +4,8 @@
             <img ng-src="{{'data:'+book.coverType+';base64,'+book.cover}}" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title" ng-bind="book.title"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+                <p class="card-text" ng-bind="book.description | limitText: 100"></p>
+                <button class="card-link btn btn-primary" style="float: right;" ui-sref="readBook({id:book.id})">Read</button>
             </div>
         </div>
     </div>

@@ -7,7 +7,9 @@ import lombok.Getter;
 @Builder
 public class BookResponse {
 
+    private final String id;
     private final String title;
+    private final String description;
     private final String cover;
     private final String coverType;
 }
