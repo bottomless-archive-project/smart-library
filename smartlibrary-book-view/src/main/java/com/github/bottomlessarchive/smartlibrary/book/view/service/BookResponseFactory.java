@@ -14,6 +14,7 @@ public class BookResponseFactory {
         return BookResponse.builder()
                 .title(bookEntity.getTitle())
                 .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
+                .coverType(bookEntity.getCoverType())
                 .build();
     }
 }

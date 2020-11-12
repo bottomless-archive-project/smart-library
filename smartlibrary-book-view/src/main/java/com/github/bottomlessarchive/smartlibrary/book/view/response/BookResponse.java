@@ -9,4 +9,5 @@ public class BookResponse {
 
     private final String title;
     private final String cover;
+    private final String coverType;
 }

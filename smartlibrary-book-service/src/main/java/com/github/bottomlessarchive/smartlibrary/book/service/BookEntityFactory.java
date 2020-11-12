@@ -20,7 +20,9 @@ public class BookEntityFactory {
                                 .version(bookLocationEntity.getMetadata().getVersion())
                                 .title(bookLocationEntity.getMetadata().getTitle())
                                 .cover(bookLocationEntity.getCover())
+                                .coverType(bookLocationEntity.getMetadata().getCoverType())
                                 .content(bookLocationEntity.getContent())
+                                .contentType(bookLocationEntity.getMetadata().getContentType())
                                 .build()
                 )
                 .collect(Collectors.toList());
