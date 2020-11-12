@@ -7,5 +7,6 @@ import lombok.Getter;
 @Builder
 public class BookEntity {
 
+    private final int version;
     private final String title;
 }

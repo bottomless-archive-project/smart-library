@@ -1,6 +1,6 @@
 package com.github.bottomlessarchive.smartlibrary.book.view.controller;
 
-import com.github.bottomlessarchive.smartlibrary.book.service.BookLocatorService;
+import com.github.bottomlessarchive.smartlibrary.book.service.BookEntityFactory;
 import com.github.bottomlessarchive.smartlibrary.book.view.response.BookResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookLocatorService bookLocatorService;
+    private final BookEntityFactory bookLocatorService;
 
     @GetMapping("/book/")
     public List<BookResponse> getBooks() {

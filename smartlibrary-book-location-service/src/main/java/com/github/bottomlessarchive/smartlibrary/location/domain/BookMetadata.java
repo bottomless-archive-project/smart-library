@@ -1,4 +1,4 @@
-package com.github.bottomlessarchive.smartlibrary.book.domain;
+package com.github.bottomlessarchive.smartlibrary.location.domain;
 
 import lombok.Data;
 

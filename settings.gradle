@@ -2,4 +2,5 @@ rootProject.name = 'smart-library'
 include 'smartlibrary-runtime'
 include 'smartlibrary-book-service'
 include 'smartlibrary-book-view'
+include 'smartlibrary-book-location-service'
 
