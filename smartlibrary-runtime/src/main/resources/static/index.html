@@ -56,9 +56,17 @@
                         .state({
                             name: 'readBook',
                             url: '/read/:id',
+                            resolve: {
+                                book: ['$http', '$stateParams', function ($http, $stateParams) {
+                                    return $http.get('/book/' + $stateParams.id)
+                                        .then(function (response) {
+                                            return response.data;
+                                        });
+                                }]
+                            },
                             templateUrl: './read/read.html',
-                            controller: function ($scope, $state) {
-                                $scope.id = $state.params['id'];
+                            controller: function ($scope, $state, book) {
+                                $scope.book = book;
                             }
                         })
                 }])

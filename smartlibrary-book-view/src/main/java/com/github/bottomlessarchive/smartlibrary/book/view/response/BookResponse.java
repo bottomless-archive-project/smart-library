@@ -14,6 +14,7 @@ public class BookResponse {
     private final String description;
     private final String cover;
     private final String coverType;
+    private final String contentType;
     private final List<String> author;
     private final String publisher;
     private final String published;

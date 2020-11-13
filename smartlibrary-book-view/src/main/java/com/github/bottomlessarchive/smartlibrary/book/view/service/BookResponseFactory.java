@@ -19,6 +19,7 @@ public class BookResponseFactory {
                     .description(bookEntity.getDescription())
                     .cover(Base64.getEncoder().encodeToString(bookEntity.getCover().readAllBytes()))
                     .coverType(bookEntity.getCoverType())
+                    .contentType(bookEntity.getContentType())
                     .author(bookEntity.getAuthor())
                     .pageCount(bookEntity.getPageCount())
                     .publisher(bookEntity.getPublisher())

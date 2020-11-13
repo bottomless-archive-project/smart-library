@@ -46,7 +46,7 @@ public class BookController {
             final byte[] contents = bookEntity.getContent().readAllBytes();
 
             final HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentType(MediaType.valueOf(bookEntity.getContentType()));
             headers.setContentDisposition(
                     ContentDisposition
                             .builder("inline")
