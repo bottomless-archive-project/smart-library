@@ -9,6 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.26/angular-ui-router.js"></script>
 
+    <!-- ePub -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="/asset/js/epub.js"></script>
+
     <script>
         angular.module('book-library', ['ui.router'])
             .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$sceProvider',
@@ -65,8 +69,26 @@
                                 }]
                             },
                             templateUrl: './read/read.html',
-                            controller: function ($scope, $state, book) {
+                            controller: function ($scope, $state, $timeout, book) {
                                 $scope.book = book;
+
+                                if ($scope.book.contentType === 'application/epub+zip') {
+                                    $scope.epubBook = ePub("/book/" + $scope.book.id + "/content", {openAs: "epub"});
+
+                                    $timeout(function () {
+                                        $scope.rendition = $scope.epubBook.renderTo(document.getElementById("area"),
+                                            {
+                                                method: "continuous",
+                                                flow: "scrolled-doc",
+                                                width: "100%",
+                                                height: "90%",
+                                                spread: "always",
+                                                fullsize: true
+                                            }
+                                        );
+                                        var displayed = $scope.rendition.display();
+                                    }, 0);
+                                }
                             }
                         })
                 }])

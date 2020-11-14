@@ -1,2 +1,11 @@
-<iframe ng-if="book.contentType == 'application/pdf'" ng-src="{{'./book/'+book.id+'/content'}}" style="width: 100%; margin-top: -16px;" class="h-100"
-        frameborder="0"></iframe>
+<iframe ng-if="book.contentType == 'application/pdf'" ng-src="{{'./book/'+book.id+'/content'}}"
+        style="width: 100%; margin-top: -16px;" class="h-100" frameborder="0"></iframe>
+
+<div ng-if="book.contentType == 'application/epub+zip'">
+    <div class="mb-3 text-center">
+        <button class="btn btn-sm btn-primary" style="width: 120px;" ng-click="rendition.prev()">Previous</button>
+        <button class="btn btn-sm btn-primary" style="width: 120px;" ng-click="rendition.next()">Next</button>
+    </div>
+
+    <div id="area"></div>
+</div>
