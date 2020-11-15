@@ -41,6 +41,13 @@
                             }
                         })
                         .state({
+                            name: 'newbook',
+                            url: '/new-book',
+                            templateUrl: './newbook/newbook.html',
+                            controller: function ($scope) {
+                            }
+                        })
+                        .state({
                             name: 'overview',
                             url: '/overview/:id',
                             resolve: {
@@ -124,7 +131,7 @@
             Smart Library
         </a>
     </nav>
-    <div ui-view class="h-100" style="padding-top: 72px; margin-top: -56px;"></div>
+    <div ui-view class="h-100" style="padding-top: 65px; margin-top: -56px;"></div>
 </div>
 </body>
 </html>
