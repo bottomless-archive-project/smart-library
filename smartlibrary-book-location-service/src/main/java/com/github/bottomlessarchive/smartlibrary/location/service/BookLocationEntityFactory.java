@@ -40,8 +40,7 @@ public class BookLocationEntityFactory {
     @SneakyThrows
     public void newBookLocation(final BookLocationCreationContext bookLocationCreationContext) {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(
-                Path.of(bookLocationProperties.getLocation(),
-                        bookLocationCreationContext.getMetadata().getTitle() + ".book").toFile())))) {
+                buildPathForNewBook(bookLocationCreationContext).toFile())))) {
 
             // Cover
             ZipEntry cover = new ZipEntry("cover");
@@ -65,6 +64,21 @@ public class BookLocationEntityFactory {
             zipOutputStream.putNextEntry(metadata);
             zipOutputStream.write(meta, 0, meta.length);
         }
+    }
+
+    private Path buildPathForNewBook(final BookLocationCreationContext bookLocationCreationContext) {
+        Path path = Path.of(bookLocationProperties.getLocation(),
+                bookLocationCreationContext.getMetadata().getTitle() + ".book");
+
+        int counter = 1;
+        while (Files.exists(path)) {
+            path = Path.of(bookLocationProperties.getLocation(),
+                    bookLocationCreationContext.getMetadata().getTitle() + "_" + counter + ".book");
+
+            counter++;
+        }
+
+        return path;
     }
 
     @SneakyThrows
