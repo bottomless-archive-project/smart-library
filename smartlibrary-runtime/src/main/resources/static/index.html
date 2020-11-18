@@ -44,7 +44,35 @@
                             name: 'newbook',
                             url: '/new-book',
                             templateUrl: './newbook/newbook.html',
-                            controller: function ($scope) {
+                            controller: function ($scope, $http) {
+                                $scope.title = '';
+                                $scope.author = '';
+                                $scope.publisher = '';
+                                $scope.published = '';
+                                $scope.description = '';
+
+                                $scope.upload = function () {
+                                    var cover = document.getElementById("cover");
+                                    var book = document.getElementById("book");
+
+                                    var formData = new FormData();
+                                    formData.append('title', $scope.title);
+                                    formData.append('author', $scope.author);
+                                    formData.append('publisher', $scope.publisher);
+                                    formData.append('published', $scope.published);
+                                    formData.append('description', $scope.description);
+                                    formData.append('cover', cover.files[0]);
+                                    formData.append('book', book.files[0]);
+
+                                    console.log("TITLE: "+$scope.title);
+
+                                    $http.post('/book', formData,
+                                        {
+                                            //transformRequest: angular.identity,
+                                            headers: {'Content-Type': undefined}
+                                        }
+                                    );
+                                };
                             }
                         })
                         .state({

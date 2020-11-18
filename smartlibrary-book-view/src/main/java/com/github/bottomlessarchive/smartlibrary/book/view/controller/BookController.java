@@ -1,6 +1,7 @@
 package com.github.bottomlessarchive.smartlibrary.book.view.controller;
 
 import com.github.bottomlessarchive.smartlibrary.book.domain.BookEntity;
+import com.github.bottomlessarchive.smartlibrary.book.domain.BookCreationContext;
 import com.github.bottomlessarchive.smartlibrary.book.service.BookEntityFactory;
 import com.github.bottomlessarchive.smartlibrary.book.view.response.BookResponse;
 import com.github.bottomlessarchive.smartlibrary.book.view.service.BookResponseFactory;
@@ -14,7 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,5 +62,29 @@ public class BookController {
                     .headers(headers)
                     .body(contents);
         }
+    }
+
+    @SneakyThrows
+    @PostMapping("/book")
+    public void createBook(
+            @RequestParam String title,
+            @RequestParam String author,
+            @RequestParam String publisher,
+            @RequestParam String published,
+            @RequestParam String description,
+            @RequestParam MultipartFile cover,
+            @RequestParam MultipartFile book
+    ) {
+        bookEntityFactory.newBook(
+                BookCreationContext.builder()
+                        .title(title)
+                        .description(description)
+                        .author(author)
+                        .publisher(publisher)
+                        .published(published)
+                        .cover(cover.getInputStream())
+                        .content(book.getInputStream())
+                        .build()
+        );
     }
 }
