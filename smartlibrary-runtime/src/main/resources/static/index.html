@@ -44,7 +44,7 @@
                             name: 'newbook',
                             url: '/new-book',
                             templateUrl: './newbook/newbook.html',
-                            controller: function ($scope, $http) {
+                            controller: function ($scope, $http, $state) {
                                 $scope.isbn = '';
                                 $scope.title = '';
                                 $scope.author = '';
@@ -70,10 +70,11 @@
 
                                     $http.post('/book', formData,
                                         {
-                                            //transformRequest: angular.identity,
                                             headers: {'Content-Type': undefined}
                                         }
-                                    );
+                                    ).then(function onSuccess(response) {
+                                        $state.go('home');
+                                    });
                                 };
                             }
                         })
