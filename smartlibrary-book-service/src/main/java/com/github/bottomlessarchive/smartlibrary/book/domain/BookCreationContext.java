@@ -1,6 +1,5 @@
 package com.github.bottomlessarchive.smartlibrary.book.domain;
 
-import java.io.InputStream;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,6 +12,6 @@ public class BookCreationContext {
     private final String author;
     private final String publisher;
     private final String published;
-    private final InputStream cover;
-    private final InputStream content;
+    private final byte[] cover;
+    private final byte[] content;
 }

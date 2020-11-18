@@ -47,25 +47,15 @@ public class BookLocationEntityFactory {
             ZipEntry cover = new ZipEntry("cover");
 
             zipOutputStream.putNextEntry(cover);
-
-            byte[] bytes = new byte[1024];
-            int count = bookLocationCreationContext.getCover().read(bytes);
-            while (count > -1) {
-                zipOutputStream.write(bytes, 0, count);
-                count = bookLocationCreationContext.getCover().read(bytes);
-            }
+            zipOutputStream.write(bookLocationCreationContext.getCover(), 0,
+                    bookLocationCreationContext.getCover().length);
 
             // Content
             ZipEntry content = new ZipEntry("content");
 
             zipOutputStream.putNextEntry(content);
-
-            bytes = new byte[1024];
-            count = bookLocationCreationContext.getContent().read(bytes);
-            while (count > -1) {
-                zipOutputStream.write(bytes, 0, count);
-                count = bookLocationCreationContext.getContent().read(bytes);
-            }
+            zipOutputStream.write(bookLocationCreationContext.getContent(), 0,
+                    bookLocationCreationContext.getContent().length);
 
             // Metadata
             ZipEntry metadata = new ZipEntry("metadata.json");

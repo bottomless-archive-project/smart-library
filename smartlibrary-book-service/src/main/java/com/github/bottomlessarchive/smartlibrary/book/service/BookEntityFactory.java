@@ -12,13 +12,14 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class BookEntityFactory {
 
+    private final Tika tika;
     private final BookLocationEntityFactory bookLocationEntityFactory;
 
     public Optional<BookEntity> getBook(final String id) {
@@ -40,9 +41,8 @@ public class BookEntityFactory {
         bookMetadata.setPublisher(bookEntityCreationContext.getPublisher());
         bookMetadata.setPublished(bookEntityCreationContext.getPublished());
 
-        //TODO: Detect mime type
-        bookMetadata.setContentType(MediaType.APPLICATION_PDF.toString());
-        bookMetadata.setCoverType(MediaType.IMAGE_JPEG.toString());
+        bookMetadata.setContentType(tika.detect(bookEntityCreationContext.getContent()));
+        bookMetadata.setCoverType(tika.detect(bookEntityCreationContext.getCover()));
 
         bookLocationEntityFactory.newBookLocation(
                 BookLocationCreationContext.builder()

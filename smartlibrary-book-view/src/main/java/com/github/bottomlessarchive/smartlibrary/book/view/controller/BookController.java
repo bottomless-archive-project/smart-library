@@ -82,8 +82,8 @@ public class BookController {
                         .author(author)
                         .publisher(publisher)
                         .published(published)
-                        .cover(cover.getInputStream())
-                        .content(book.getInputStream())
+                        .cover(cover.getInputStream().readAllBytes())
+                        .content(book.getInputStream().readAllBytes())
                         .build()
         );
     }
