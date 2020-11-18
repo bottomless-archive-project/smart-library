@@ -67,21 +67,25 @@ public class BookController {
     @SneakyThrows
     @PostMapping("/book")
     public void createBook(
+            @RequestParam String isbn,
             @RequestParam String title,
             @RequestParam String author,
             @RequestParam String publisher,
             @RequestParam String published,
             @RequestParam String description,
+            @RequestParam int pageCount,
             @RequestParam MultipartFile cover,
             @RequestParam MultipartFile book
     ) {
         bookEntityFactory.newBook(
                 BookCreationContext.builder()
+                        .isbn(isbn)
                         .title(title)
                         .description(description)
                         .author(author)
                         .publisher(publisher)
                         .published(published)
+                        .pageCount(pageCount)
                         .cover(cover.getInputStream().readAllBytes())
                         .content(book.getInputStream().readAllBytes())
                         .build()

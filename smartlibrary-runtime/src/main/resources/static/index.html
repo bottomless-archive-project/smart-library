@@ -45,26 +45,28 @@
                             url: '/new-book',
                             templateUrl: './newbook/newbook.html',
                             controller: function ($scope, $http) {
+                                $scope.isbn = '';
                                 $scope.title = '';
                                 $scope.author = '';
                                 $scope.publisher = '';
                                 $scope.published = '';
                                 $scope.description = '';
+                                $scope.pageCount = 0;
 
                                 $scope.upload = function () {
                                     var cover = document.getElementById("cover");
                                     var book = document.getElementById("book");
 
                                     var formData = new FormData();
+                                    formData.append('isbn', $scope.isbn);
                                     formData.append('title', $scope.title);
+                                    formData.append('pageCount', $scope.pageCount);
                                     formData.append('author', $scope.author);
                                     formData.append('publisher', $scope.publisher);
                                     formData.append('published', $scope.published);
                                     formData.append('description', $scope.description);
                                     formData.append('cover', cover.files[0]);
                                     formData.append('book', book.files[0]);
-
-                                    console.log("TITLE: "+$scope.title);
 
                                     $http.post('/book', formData,
                                         {

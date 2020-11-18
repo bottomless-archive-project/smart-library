@@ -34,12 +34,13 @@ public class BookEntityFactory {
 
         bookMetadata.setVersion(1);
         bookMetadata.setId(UUID.randomUUID().toString());
-        bookMetadata.setIsbn("");
+        bookMetadata.setIsbn(bookEntityCreationContext.getIsbn());
         bookMetadata.setTitle(bookEntityCreationContext.getTitle());
         bookMetadata.setAuthor(Arrays.asList(bookEntityCreationContext.getAuthor().split(";")));
         bookMetadata.setDescription(bookEntityCreationContext.getDescription());
         bookMetadata.setPublisher(bookEntityCreationContext.getPublisher());
         bookMetadata.setPublished(bookEntityCreationContext.getPublished());
+        bookMetadata.setPageCount(bookEntityCreationContext.getPageCount());
 
         bookMetadata.setContentType(tika.detect(bookEntityCreationContext.getContent()));
         bookMetadata.setCoverType(tika.detect(bookEntityCreationContext.getCover()));
