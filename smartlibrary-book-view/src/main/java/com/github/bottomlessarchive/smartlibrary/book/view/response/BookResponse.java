@@ -16,6 +16,7 @@ public class BookResponse {
     private final String coverType;
     private final String contentType;
     private final List<String> author;
+    private final List<List<String>> subject;
     private final String publisher;
     private final String published;
     private final int pageCount;

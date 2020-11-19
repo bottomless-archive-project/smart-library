@@ -73,6 +73,7 @@ public class BookController {
             @RequestParam String publisher,
             @RequestParam String published,
             @RequestParam String description,
+            @RequestParam String subject,
             @RequestParam int pageCount,
             @RequestParam MultipartFile cover,
             @RequestParam MultipartFile book
@@ -85,6 +86,7 @@ public class BookController {
                         .author(author)
                         .publisher(publisher)
                         .published(published)
+                        .subject(subject)
                         .pageCount(pageCount)
                         .cover(cover.getInputStream().readAllBytes())
                         .content(book.getInputStream().readAllBytes())

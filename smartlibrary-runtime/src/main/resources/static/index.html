@@ -51,6 +51,7 @@
                                 $scope.publisher = '';
                                 $scope.published = '';
                                 $scope.description = '';
+                                $scope.subject = '';
                                 $scope.pageCount = 0;
 
                                 $scope.upload = function () {
@@ -64,6 +65,7 @@
                                     formData.append('author', $scope.author);
                                     formData.append('publisher', $scope.publisher);
                                     formData.append('published', $scope.published);
+                                    formData.append('subject', $scope.subject);
                                     formData.append('description', $scope.description);
                                     formData.append('cover', cover.files[0]);
                                     formData.append('book', book.files[0]);

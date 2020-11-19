@@ -41,6 +41,14 @@ public class BookEntityFactory {
         bookMetadata.setPublisher(bookEntityCreationContext.getPublisher());
         bookMetadata.setPublished(bookEntityCreationContext.getPublished());
         bookMetadata.setPageCount(bookEntityCreationContext.getPageCount());
+        bookMetadata.setSubject(
+                Arrays.stream(bookEntityCreationContext.getSubject().split("\\|"))
+                        .map(subject -> Arrays.stream(subject.split(">"))
+                                .map(String::trim)
+                                .collect(Collectors.toList())
+                        )
+                        .collect(Collectors.toList())
+        );
 
         bookMetadata.setContentType(tika.detect(bookEntityCreationContext.getContent()));
         bookMetadata.setCoverType(tika.detect(bookEntityCreationContext.getCover()));
@@ -69,6 +77,7 @@ public class BookEntityFactory {
                 .author(bookLocationEntity.getMetadata().getAuthor())
                 .publisher(bookLocationEntity.getMetadata().getPublisher())
                 .published(bookLocationEntity.getMetadata().getPublished())
+                .subject(bookLocationEntity.getMetadata().getSubject())
                 .pageCount(bookLocationEntity.getMetadata().getPageCount())
                 .description(bookLocationEntity.getMetadata().getDescription())
                 .cover(bookLocationEntity.getCover())

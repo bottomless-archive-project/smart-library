@@ -24,6 +24,7 @@ public class BookResponseFactory {
                     .pageCount(bookEntity.getPageCount())
                     .publisher(bookEntity.getPublisher())
                     .published(bookEntity.getPublished())
+                    .subject(bookEntity.getSubject())
                     .build();
         }
     }

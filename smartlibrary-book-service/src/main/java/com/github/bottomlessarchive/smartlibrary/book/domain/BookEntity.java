@@ -18,6 +18,7 @@ public class BookEntity implements AutoCloseable {
     private final List<String> author;
     private final String publisher;
     private final String published;
+    private final List<List<String>> subject;
     private final int pageCount;
     private final String coverType;
     private final InputStream cover;

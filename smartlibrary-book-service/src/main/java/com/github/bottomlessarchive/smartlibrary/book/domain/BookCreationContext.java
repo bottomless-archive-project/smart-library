@@ -13,6 +13,7 @@ public class BookCreationContext {
     private final String author;
     private final String publisher;
     private final String published;
+    private final String subject;
     private final int pageCount;
     private final byte[] cover;
     private final byte[] content;

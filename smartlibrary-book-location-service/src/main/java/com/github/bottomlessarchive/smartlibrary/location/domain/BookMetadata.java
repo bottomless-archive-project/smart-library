@@ -32,6 +32,7 @@ public class BookMetadata {
 
     private String description;
     private List<String> author;
+    private List<List<String>> subject;
     private String publisher;
     private String published;
     private int pageCount;
