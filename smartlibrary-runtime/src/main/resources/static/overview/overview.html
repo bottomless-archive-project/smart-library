@@ -32,14 +32,14 @@
                 <div class="row">
                     <div class="col">
                         <dt>Subject</dt>
-                        <ol ng-repeat="subject in book.subject" class="breadcrumb pt-0 pl-0"
+                        <ol ng-repeat="subject in book.subject" class="breadcrumb pt-0 pl-0 pb-0 mb-0"
                             style="background-color: transparent;">
                             <li class="breadcrumb-item" ng-repeat="entry in subject" ng-bind="entry"></li>
                         </ol>
                     </div>
                 </div>
                 <div class="text-right">
-                    <button class="card-link btn btn-primary ml-2" ui-sref="readBook({id:book.id})">
+                    <button class="card-link btn btn-primary btn-sm ml-2" ui-sref="readBook({id:book.id})">
                         Read
                     </button>
                 </div>

@@ -4,20 +4,26 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-3" ng-repeat="book in books">
+<div class="row mr-0 ml-0">
+    <div class="col-3 pl-1 pr-1 mb-2 d-flex" ng-repeat="book in books">
         <div class="card">
             <img ng-src="{{'data:'+book.coverType+';base64,'+book.cover}}" class="card-img-top">
-            <div class="card-body">
+            <div class="card-body flex-fill">
                 <h5 class="card-title" ng-bind="book.title"></h5>
                 <p class="card-text" ng-bind="book.description | limitText: 100"></p>
-                <div style="float: right;">
-                    <button class="card-link btn btn-primary mr-0" ui-sref="overview({id:book.id})">
-                        Overview
-                    </button>
-                    <button class="card-link btn btn-primary ml-2" ui-sref="readBook({id:book.id})">
-                        Read
-                    </button>
+            </div>
+            <div class="card-footer pt-1 pb-1">
+                <div class="row">
+                    <div class="col p-1">
+                        <button class="btn btn-primary btn-sm btn-block" ui-sref="overview({id:book.id})">
+                            Overview
+                        </button>
+                    </div>
+                    <div class="col p-1">
+                        <button class="btn btn-primary btn-sm btn-block" ui-sref="readBook({id:book.id})">
+                            Read
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

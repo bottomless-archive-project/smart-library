@@ -23,10 +23,8 @@ public class BookEntityFactory {
     private final BookLocationEntityFactory bookLocationEntityFactory;
 
     public Optional<BookEntity> getBook(final String id) {
-        return bookLocationEntityFactory.getBookLocations().stream()
-                .filter(bookLocationEntity -> bookLocationEntity.getMetadata().getId().equals(id))
-                .map(this::transformBookLocation)
-                .findFirst();
+        return bookLocationEntityFactory.getBookLocation(id)
+                .map(this::transformBookLocation);
     }
 
     public void newBook(final BookCreationContext bookEntityCreationContext) {

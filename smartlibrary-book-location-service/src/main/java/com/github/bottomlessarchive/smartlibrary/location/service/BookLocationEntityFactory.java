@@ -11,15 +11,15 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class BookLocationEntityFactory {
 
     private static final String BOOK_EXTENSION = ".book";
@@ -27,6 +27,23 @@ public class BookLocationEntityFactory {
     private final ObjectMapper objectMapper;
     private final BookFileFactory bookFileFactory;
     private final BookLocationProperties bookLocationProperties;
+    private final Map<String, Path> bookPathMap;
+
+    public BookLocationEntityFactory(final ObjectMapper objectMapper, final BookFileFactory bookFileFactory,
+            final BookLocationProperties bookLocationProperties) {
+        this.objectMapper = objectMapper;
+        this.bookFileFactory = bookFileFactory;
+        this.bookLocationProperties = bookLocationProperties;
+
+        this.bookPathMap = getBookLocations().stream()
+                .peek(BookLocationEntity::close)
+                .collect(Collectors.toMap(a -> a.getMetadata().getId(), BookLocationEntity::getPath));
+    }
+
+    public Optional<BookLocationEntity> getBookLocation(String id) {
+        return Optional.ofNullable(bookPathMap.get(id))
+                .map(this::parseBookLocation);
+    }
 
     @SneakyThrows
     public List<BookLocationEntity> getBookLocations() {
@@ -39,8 +56,10 @@ public class BookLocationEntityFactory {
 
     @SneakyThrows
     public void newBookLocation(final BookLocationCreationContext bookLocationCreationContext) {
-        try (ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(
-                buildPathForNewBook(bookLocationCreationContext).toFile())))) {
+        final Path path = buildPathForNewBook(bookLocationCreationContext);
+
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(
+                new FileOutputStream(path.toFile())))) {
 
             // Cover
             ZipEntry cover = new ZipEntry("cover");
@@ -63,6 +82,8 @@ public class BookLocationEntityFactory {
 
             zipOutputStream.putNextEntry(metadata);
             zipOutputStream.write(meta, 0, meta.length);
+
+            bookPathMap.put(bookLocationCreationContext.getMetadata().getId(), path);
         }
     }
 
@@ -90,6 +111,7 @@ public class BookLocationEntityFactory {
         return BookLocationEntity.builder()
                 .metadata(bookMetadata)
                 .bookFile(bookFile)
+                .path(path)
                 .build();
     }
 }
